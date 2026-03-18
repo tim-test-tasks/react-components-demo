@@ -3,7 +3,7 @@ import type {Meta, StoryObj} from '@storybook/react-webpack5'
 import AgesSlider from './AgesSlider'
 
 const meta = {
-  title: 'Example/AgesSlider',
+  title: 'Components/AgesSlider',
   component: AgesSlider,
   parameters: {
     layout: 'centered'

@@ -1,0 +1,99 @@
+@use 'sass:color';
+
+.chipList {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; // 16px -> 1rem
+}
+
+.chipListContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.5rem; // 16px -> 1rem
+  overflow: hidden;
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.chipWrapper {
+  flex-shrink: 0;
+}
+
+.moreButtonWrapper {
+  flex-shrink: 0;
+  position: relative;
+}
+
+.moreButton {
+  display: flex;
+  justify-content: center;
+  padding: 0.375rem 0.75rem; // 6px 12px -> 0.375rem 0.75rem
+  border-radius: 2rem; // 32px -> 1rem
+  background-color: #ebebeb;
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem; // 14px -> 0.875rem
+  white-space: nowrap;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: #cdcdcd;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #2196f3;
+    outline-offset: 0.125rem; // 2px -> 0.125rem
+  }
+}
+
+.popup {
+  position: absolute;
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15);
+  padding: 1rem;
+  z-index: 1000;
+
+  // Ширина попапа - половина ширины списка видимых чипсов
+  width: 50vw;
+  max-width: 600px;
+  min-width: 250px;
+
+  // Максимальная высота с прокруткой
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.popupContent {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0;
+}
+
+.popupChipWrapper {
+  display: inline-flex;
+  cursor: pointer;
+
+  // Адаптация существующего Chip для попапа
+  :global(.chip) {
+    // Можно переопределить стили Chip если нужно
+    background-color: #f5f5f5;
+
+    &:hover {
+      background-color: #e5e5e5;
+    }
+  }
+
+  // Стиль для выбранного чипса в попапе
+  .selected {
+    background-color: #2196f3;
+    color: white;
+
+    &:hover {
+      background-color: color.adjust(#2196f3, $lightness: -10%);
+    }
+  }
+}

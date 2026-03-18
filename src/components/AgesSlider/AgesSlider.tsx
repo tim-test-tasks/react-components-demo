@@ -3,7 +3,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
-import './agesSlider.scss'
+import './AgesSlider.scss'
 import ArrowIcon from '../../assets/ArrowIcon'
 
 import gsap from 'gsap'
