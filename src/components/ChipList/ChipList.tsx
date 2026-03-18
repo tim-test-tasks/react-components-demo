@@ -141,9 +141,9 @@ const DefaultPopup: React.FC<PopupProps> = ({
             className={styles.popupChipWrapper}
             onClick={() => {
               onSelect(item.id)
-              if (!multiple) {
-                onClose()
-              }
+              // if (!multiple) {
+              //   onClose()
+              // }
             }}
           >
             <Chip
