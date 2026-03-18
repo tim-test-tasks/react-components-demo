@@ -44,32 +44,60 @@ export interface PopupProps {
   multiple?: boolean
 }
 
-// Стандартный попап (можно заменить на любой другой)
-// Стандартный попап с чипсами
-const DefaultPopup: React.FC<PopupProps> = ({items, selectedIds, onSelect, isOpen, onClose, anchorEl, multiple}) => {
+const DefaultPopup: React.FC<PopupProps> = ({
+  items,
+  selectedIds,
+  onSelect,
+  isOpen,
+  onClose,
+  anchorEl,
+  multiple
+}) => {
   const popupRef = useRef<HTMLDivElement>(null)
   const [position, setPosition] = useState({top: 0, left: 0})
   const [popupWidth, setPopupWidth] = useState<number | null>(null)
 
   useEffect(() => {
-    if (isOpen && anchorEl) {
-      const rect = anchorEl.getBoundingClientRect()
-
-      // Получаем ширину контейнера с видимыми чипсами
-      const chipListContainer = anchorEl.closest(`.${styles.chipList}`)?.querySelector(`.${styles.chipListContainer}`)
-      let width = 300 // значение по умолчанию
-
+    if (isOpen && anchorEl && popupRef.current) {
+      const buttonRect = anchorEl.getBoundingClientRect()
+      
+      // Получаем контейнер с видимыми чипсами
+      const chipListContainer = anchorEl
+        .closest(`.${styles.chipList}`)
+        ?.querySelector(`.${styles.chipListContainer}`) as HTMLElement
+      
       if (chipListContainer) {
-        // Ширина попапа - половина ширины контейнера с чипсами
-        width = chipListContainer.clientWidth / 2
+        // Рассчитываем ширину попапа
+        const containerWidth = chipListContainer.clientWidth
+        const targetWidth = Math.max(250, Math.min(600, containerWidth / 2))
+        setPopupWidth(targetWidth)
+        
+        // Получаем позицию контейнера относительно viewport
+        const containerRect = chipListContainer.getBoundingClientRect()
+        const buttonWrapperRect = anchorEl.parentElement?.getBoundingClientRect()
+        
+        if (buttonWrapperRect) {
+          // Рассчитываем left позицию, чтобы попап был по центру относительно кнопки,
+          // но не выходил за границы контейнера
+          let left = buttonWrapperRect.left + (buttonWrapperRect.width / 2) - (targetWidth / 2)
+          
+          // Проверяем, не выходит ли попап за левый край контейнера
+          if (left < containerRect.left) {
+            left = containerRect.left
+          }
+          
+          // Проверяем, не выходит ли попап за правый край контейнера
+          const maxLeft = containerRect.right - targetWidth
+          if (left > maxLeft) {
+            left = maxLeft
+          }
+          
+          setPosition({
+            top: buttonRect.height + 8,
+            left: left - containerRect.left // Относительная позиция внутри контейнера
+          })
+        }
       }
-
-      setPopupWidth(Math.max(250, Math.min(600, width)))
-
-      setPosition({
-        top: rect.height + 8,
-        left: Math.max(0, rect.width / 2 - width / 2) // Центрируем относительно кнопки
-      })
     }
   }, [isOpen, anchorEl])
 
@@ -113,15 +141,14 @@ const DefaultPopup: React.FC<PopupProps> = ({items, selectedIds, onSelect, isOpe
             className={styles.popupChipWrapper}
             onClick={() => {
               onSelect(item.id)
-              // if (!multiple) {
-              //   onClose()
-              // }
+              if (!multiple) {
+                onClose()
+              }
             }}
           >
             <Chip
               {...item}
               selected={selectedIds.includes(item.id)}
-              // Отключаем onClick из пропсов, чтобы не конфликтовал
               onClick={() => {}}
             />
           </div>
