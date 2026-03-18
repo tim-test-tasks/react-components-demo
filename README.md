@@ -1,12 +1,13 @@
-# Slider project using React(Webpack)/Storybook
+# Test tasks on React's ecosystem stack
 
-## Slider Storybook
-Это проект тестовое задание -
-React компонент кругового слайдера исторических дат с анимациями GSAP и Swiper.js.
+## Storybook
+Это проект галерея выполненных тестовых заданий
+Список реализованных компонентов:
+1) Компонент кругового слайдера исторических дат с анимациями GSAP и Swiper.js.
 Демонстрирует сложную анимацию вращения точек + горизонтальный слайдер событий.
+2) Компонент список чипсов для 
 
 📋 Технологии
-
 ```text
 React 19 + TypeScript
 GSAP 3.14 (анимации)
@@ -18,52 +19,23 @@ Webpack 5
 
 🚀 Быстрый старт
 1. Клонируй репозиторий
-
 ```bash
-git clone https://github.com/Timmmich19/slider-storybook.git
-cd slider-storybook
+git clone https://github.com/tim-test-tasks/react-components-demo.git
+cd react-components-demo
 ```
 2. Установи зависимости
 ```bash
 npm install
 ```
 3. Запуск проектов
-Команда	Описание	URL
-
 ```bash
 npm start	Development сервер
 ```
 Запустится автоматически или перейдите по ссылке после запуска:
-http://localhost:8080
+http://localhost:3000
+
+4. Опционально сборка проекта
 ```bash
 npm run build	Сборка	dist/
 ```
-
-Структура проекта:
-
-```text
-src/
-├── components/
-│   └── AgesSlider/
-│       ├── AgesSlider.tsx
-│       └── agesSlider.scss
-├── shared/
-│   └── mock/
-│       └── generateAges.ts
-├── stories/
-└── assets/
-    └── ArrowIcon.tsx
-```
-
-🔧 Настройка Webpack
-
-Поддержка:
-
-    ✅ TypeScript + React 19
-
-    ✅ SCSS/Sass модули
-
-    ✅ GSAP + Swiper
-
-    ✅ Hot Reload
 
